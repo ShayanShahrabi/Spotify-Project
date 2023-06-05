@@ -1,4 +1,4 @@
-package objects.spotifyproject;
+package objects;
 import java.sql.*;
 
 public class Song {

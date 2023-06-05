@@ -1,12 +1,12 @@
-package objects.spotifyproject;
+package objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Album extends Content {
+public class Playlist extends Content {
     private List<Song> songs;
 
-    public Album(int ID, String title, List<Artist> contributors, String description, String image) {
+    public Playlist(int ID, String title, List<String> contributors, String description, String image) {
         super(ID, title, contributors, description, image);
         this.songs = new ArrayList<>();
     }
@@ -25,3 +25,7 @@ public class Album extends Content {
         setDuration(getDuration() - song.getDuration());
     }
 }
+
+
+
+
