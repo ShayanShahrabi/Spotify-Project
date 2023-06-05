@@ -1,4 +1,4 @@
-package src.main.java;
+package objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Content {
     private int likeCount;
     private Img image;
 
-    public Content(int ID, String title, List<String> contributors, String description, Img image) {
+    public Content(int ID, String title, List<Artist> contributors, String description, Img image) {
         this.ID = ID;
         this.title = title;
         this.contributors = contributors;

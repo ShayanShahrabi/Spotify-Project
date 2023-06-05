@@ -1,4 +1,4 @@
-package src.main.java;
+package objects;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class Album extends Content {
     private List<Song> songs;
 
-    public Album(int ID, String title, List<String> contributors, String description, String image) {
+    public Album(int ID, String title, List<Artist> contributors, String description, String image) {
         super(ID, title, contributors, description, image);
         this.songs = new ArrayList<>();
     }

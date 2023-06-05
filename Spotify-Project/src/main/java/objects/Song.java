@@ -1,4 +1,4 @@
-package src.main.java;
+package objects;
 import java.sql.*;
 
 public class Song {
