@@ -1,8 +1,7 @@
 package Server;
 
 import com.google.gson.Gson;
-import src.main.java.Artist;
-import src.main.java.Song;
+import objects.Song;
 
 public class Response {
     // Define the response object structure according to your needs
