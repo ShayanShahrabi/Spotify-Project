@@ -24,16 +24,8 @@ hs_err_pid*
 replay_pid*
 
 
-
-
-
 # Created by https://www.toptal.com/developers/gitignore/api/gradle
 # Edit at https://www.toptal.com/developers/gitignore?templates=gradle
-
-### Gradle ###
-.gradle
-**/build/
-!src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
