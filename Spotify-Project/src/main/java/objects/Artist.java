@@ -14,12 +14,11 @@ public class Artist {
     private String mainGenre;
     private List<String> socialLinks;
 
-    public Artist(int userID, String username, String password, String email, Img profilePicture, String biography, String mainGenre) {
+    public Artist(int userID, String username, String password, String email, String biography, String mainGenre) {
         this.userID = userID;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.profilePicture = profilePicture;
         this.biography = biography;
         this.albums = new ArrayList<>();
         this.mainGenre = mainGenre;
