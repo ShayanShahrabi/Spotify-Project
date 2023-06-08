@@ -10,7 +10,6 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 class ClientHandler implements Runnable {
     private Socket clientSocket;
 
@@ -82,8 +81,3 @@ public class Server {
         }
     }
 }
-
-class DBClass {
-    // TODO: Implement the methods to interact with the database
-}
-

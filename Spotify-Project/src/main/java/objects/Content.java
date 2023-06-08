@@ -1,24 +1,22 @@
 package objects;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Content {
     private int ID;
     private String title;
-    private List<Artist> contributors;
+    private List<String> contributors;
     private int duration;
     private String description;
     private int likeCount;
-    private Img image;
 
-    public Content(int ID, String title, List<Artist> contributors, String description, Img image) {
+    public Content(int ID, String title, List<String> contributors, int duration, String description, int likeCount) {
         this.ID = ID;
         this.title = title;
         this.contributors = contributors;
+        this.duration = duration;
         this.description = description;
-        this.likeCount = 0;
-        this.image = image;
+        this.likeCount = likeCount;
     }
 
     public int getID() {
@@ -71,12 +69,5 @@ public class Content {
         }
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
 
