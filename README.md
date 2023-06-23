@@ -15,6 +15,7 @@
 ## Implementation
 - git issues
 - hashing passwords
+- the `hash` method in `SpotifyServer` class
 
 ## GUI
 - using Java FX
