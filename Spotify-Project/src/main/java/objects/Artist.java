@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Artist {
     private int userID;
-    private String username;
+    private String name;
     private String password;
     private String email;
     private String profilePicture;
@@ -14,12 +14,11 @@ public class Artist {
     private String mainGenre;
     private List<String> socialLinks;
 
-    public Artist(int userID, String username, String password, String email, Img profilePicture, String biography, String mainGenre) {
+    public Artist(int userID, String name, String password, String email, String biography, String mainGenre, String genre) {
         this.userID = userID;
-        this.username = username;
+        this.name = name;
         this.password = password;
         this.email = email;
-        this.profilePicture = profilePicture;
         this.biography = biography;
         this.albums = new ArrayList<>();
         this.mainGenre = mainGenre;
@@ -30,8 +29,8 @@ public class Artist {
         return userID;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {

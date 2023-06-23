@@ -5,17 +5,14 @@ import java.util.List;
 public class Episode {
     private int episodeID;
     private String title;
-    private Img image;
-
     private String description;
     private int duration;
 
-    public Episode(int episodeID, String title, String description, int duration, Img image) {
+    public Episode(int episodeID, String title, String description, int duration) {
         this.episodeID = episodeID;
         this.title = title;
         this.description = description;
         this.duration = duration;
-        this.image = image;
     }
 
     public int getEpisodeID() {
