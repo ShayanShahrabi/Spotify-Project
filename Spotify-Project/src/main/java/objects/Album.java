@@ -6,9 +6,9 @@ import java.util.List;
 public class Album extends Content {
     private List<Song> songs;
 
-    public Album(int ID, String title, List<Artist> contributors, String description, String image) {
-        super(ID, title, contributors, description, image);
-        this.songs = new ArrayList<>();
+    public Album(int ID, String title, List<String> contributors, int duration, String description, int likeCount, List<Song> songs) {
+        super(ID, title, contributors, duration, description, likeCount);
+        this.songs = songs;
     }
 
     public List<Song> getSongs() {

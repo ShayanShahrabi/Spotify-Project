@@ -1,4 +1,5 @@
 package objects;
+import java.io.File;
 import java.sql.*;
 
 public class Song {
@@ -55,5 +56,18 @@ public class Song {
     public int getLikeCount() {
         return likeCount;
     }
+
+    public String getFilePath(Song song) {
+        String basePath = "src" + File.separator + "main" + File.separator + "java" + File.separator + "Server" +
+                File.separator + "resources";
+        String genre = song.getGenre();
+        String artistName = song.getArtist().getName();
+
+        genre = genre.replaceAll("[^a-zA-Z0-9]", "");
+        artistName = artistName.replaceAll("[^a-zA-Z0-9]", "");
+
+        return basePath + File.separator + genre + File.separator + artistName;
+    }
+
 }
 

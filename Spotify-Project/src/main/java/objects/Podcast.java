@@ -6,9 +6,9 @@ import java.util.List;
 public class Podcast extends Content {
     private List<Episode> episodes;
 
-    public Podcast(int ID, String title, List<Artist> contributors, String description, String image) {
-        super(ID, title, contributors, description, image);
-        this.episodes = new ArrayList<>();
+    public Podcast(int ID, String title, List<String> contributors, int duration, String description, int likeCount, List<Episode> episodes) {
+        super(ID, title, contributors, duration, description, likeCount);
+        this.episodes = episodes;
     }
 
     public List<Episode> getEpisodes() {
