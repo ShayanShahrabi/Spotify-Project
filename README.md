@@ -16,11 +16,12 @@
 - git issues
 - hashing passwords
 - the `hash` method in `SpotifyServer` class
+- using sockets to transfer data
 
 ## GUI
 - using Java FX
 
-## seerver 
+## server 
 - server log
 - socket programming
 
@@ -45,5 +46,6 @@ Shayan Shahrabi Farahani [linkedin](https://www.linkedin.com/in/shayanshahrabi/)
 Spring of 2023 (Version 1.0)
 
 ## Resources
+- managing tables with [Extends Class] (https://extendsclass.com/)
 - bro code
 - book
