@@ -6,9 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.io.File;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +42,10 @@ public class DBManager {
     //برای اجرای دسته ای از دستورات اس کیو ال از این روتین استفاده می شود
     //این روتین یا همه یا هیچ است
     public String runSQLCommandList(List SQLCommandList) throws SQLException{
-
         String result;
-        
+        //
         Connection conn;    
-        
+        //
         try {
             // Connect to the SQLite database
             Class.forName("org.sqlite.JDBC");
@@ -77,13 +73,12 @@ public class DBManager {
     //--------------------------------------------------------------------------    
     //This routin will return 'Found' or 'Not Foung'
     public String ifRecordExist(String SQLSelect){
-        
         String returnValue = "Not Found";
-        
+        //
         Connection conn = null;    
         PreparedStatement pstmt = null;
         ResultSet rs = null;  
-        
+        //
         try {
             // Connect to the SQLite database
             Class.forName("org.sqlite.JDBC");
@@ -204,18 +199,20 @@ public class DBManager {
         PreparedStatement pstmt = null;
         ResultSet rs = null;  
         String SQLSelect, userID, fullName;
+        Integer likes;
         try {        
             // Connect to the SQLite database
             Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(connectionString);
-            SQLSelect = "Select userID, fullName From Accounts Where type = 'Singer' And fullName like '%" + searchKey + "%' Order By fullName";
+            SQLSelect = "Select userID, fullName, likes From Accounts Where type = 'Singer' And fullName like '%" + searchKey + "%' Order By fullName";
             pstmt = conn.prepareStatement(SQLSelect);
             rs = pstmt.executeQuery();
             while (rs.next()) {
                 userID = rs.getString("userID");
                 fullName = rs.getString("fullName");
+                likes =  rs.getInt("likes");
                 //به لیست اضافه شود
-                Singer singer = new Singer(userID, fullName);
+                Singer singer = new Singer(userID, fullName, likes);
                 singerList.add(singer);                
             }
             rs.close();

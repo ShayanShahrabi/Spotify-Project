@@ -170,8 +170,8 @@ public class SpotifyServer {
         String hashedPassword = hash(password.trim());
         //
         try{
-            SQLCommand = "Insert Into Accounts (userID, pass, type, fullName, email, address, phoneNumber) Values( '" + userID + "', '" + hashedPassword + "', '" + type + "', '" + fullName + "', '" +
-                         email + "', '" + address + "', '" + phoneNumber + "')";
+            SQLCommand = "Insert Into Accounts (userID, pass, type, fullName, email, address, phoneNumber, likes) Values( '" + userID + "', '" + hashedPassword + "', '" + type + "', '" + fullName + "', '" +
+                         email + "', '" + address + "', '" + phoneNumber + "', 0)";
             DBManager dbManager = new DBManager();
             returnValue = dbManager.runSQLCommand(SQLCommand);       //Will return "Error" or "OK"
         }
@@ -403,7 +403,10 @@ public class SpotifyServer {
                 //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
                 readFromSocket(scannerSocket);                      //Message: "Image Received"
                 //حالا فیلدهای آلبوم را ارسال می کنیم
+                write2Socket(socket, singer.getUserID());           //شناسه خواننده ارسال شود
                 write2Socket(socket, "Singer: " + singer.getFullName());
+                write2Socket(socket, "likes: " + singer.getLikes());
+                //
                 userID = singer.getUserID();
                 //حالا آهنگها را اولا از پایگاه داده می خوانیم و بعد ارسال می کنیم
                 songList = new ArrayList<>();
@@ -655,7 +658,42 @@ public class SpotifyServer {
             System.out.println("Exception in getSongHandler : " + ex.getMessage());
         }
     }
-        
+
+    //------------------------------------------------------------
+    //اگر قبلا کاربر خواننده را لایک کرده باشد آلردی لایکد و در غیراینصورت اکی در پورت نوشته می شود
+    private void likeSingerHandler(Scanner scannerSocket, Socket socket){                
+        String userID, artistID;
+        String SQLSelect, result;
+        System.out.println("Request: Like Singer\n");
+        try{
+            //خواندن اطلاعات از ورودی
+            userID = readFromSocket(scannerSocket);
+            artistID = readFromSocket(scannerSocket);
+            //
+            DBManager dbManager = new DBManager();           
+            //
+
+
+
+
+            SQLSelect = "Insert Into LikeArtist (userID, artistID) Values( '" + userID + "', '" + artistID + "')";
+            result = dbManager.runSQLCommand(SQLSelect);
+            //            
+            if (result.equals("Error")){
+                write2Socket(socket, "Already Liked!");
+            }
+            else{
+                write2Socket(socket, "OK");
+                //حالا یکی به لایک های این خواننده اضافه شود
+                SQLSelect = "Update Accounts Set likes = likes + 1 Where userID = '" + artistID + "'";
+                dbManager.runSQLCommand(SQLSelect);
+            }
+        }
+        catch (Exception ex){
+            System.out.println("Exception in likeSingerHandler : " + ex.getMessage());
+        }
+    }
+    
     //------------------------------------------------------------
     private void distibuteJobs(){
         Socket socket;
@@ -798,6 +836,12 @@ public class SpotifyServer {
                         //
                         System.out.println("Get List Thread ID: " + getSongThread.getId() + "\n");
                         //
+                        break;
+                    case "_LikeSinger":
+                        Thread likeSingerThread = new Thread(() -> likeSingerHandler(tp.getScannerSocket(), tp.getSocket()));
+                        likeSingerThread.start();
+                        //
+                        System.out.println("Get List Thread ID: " + likeSingerThread.getId() + "\n");
                         break;
                     case "_Exit":
                         System.out.println("Request: Exit\n");

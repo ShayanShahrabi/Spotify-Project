@@ -3,11 +3,13 @@ package spotifyserver;
 public class Singer {
     private String userID;
     private String fullName;
+    private Integer likes;
 
     //------------------------------------------------------------
-    public Singer(String userID, String fullName) {
+    public Singer(String userID, String fullName, Integer likes) {
         this.userID = userID;
         this.fullName = fullName;
+        this.likes = likes;
     }
 
     // Getters and setters 
@@ -29,6 +31,16 @@ public class Singer {
     //----------------------------------
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    //----------------------------------
+    public Integer getLikes() {
+        return likes;
+    }
+
+    //----------------------------------
+    public void setLikes(Integer likes) {
+        this.likes = likes;
     }
 
     //------------------------------------------------------------
