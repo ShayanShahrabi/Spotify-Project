@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: PapayaWhip;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="314.0" layoutY="297.0" text="Artist" />
+      <Label layoutX="314.0" layoutY="297.0" text="Artist" textFill="#1DB954"/>
       <ComboBox fx:id="cbArtist" layoutX="189.0" layoutY="321.0" maxHeight="26.0" minHeight="24.0" onAction="#fillSong" prefHeight="30.0" prefWidth="267.0" />
       <ComboBox fx:id="cbSong" layoutX="457.0" layoutY="321.0" maxHeight="26.0" minHeight="24.0" prefHeight="36.0" prefWidth="261.0" />
       <Button fx:id="btnAdd" layoutX="719.0" layoutY="321.0" maxHeight="26.0" minHeight="24.0" mnemonicParsing="false" onAction="#btnAddClicked" prefHeight="36.0" text="Add">
@@ -26,8 +26,8 @@
             <Font size="11.0" />
          </font></Button>
       <ListView fx:id="lvSong" layoutX="189.0" layoutY="347.0" prefHeight="285.0" prefWidth="632.0" />
-      <Button fx:id="btnSave" layoutX="404.0" layoutY="714.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: DarkBlue; -fx-text-fill: White;" text="Save" />
-      <Label layoutX="578.0" layoutY="297.0" text="Song" />
+      <Button fx:id="btnSave" layoutX="404.0" layoutY="714.0" mnemonicParsing="false" onAction="#btnSaveClicked" prefHeight="32.0" prefWidth="150.0" style="-fx-background-color: #1db954; -fx-text-fill: #212121;" text="Save" />
+      <Label layoutX="578.0" layoutY="297.0" text="Song" textFill="#1DB954"/>
       <GridPane layoutX="304.0" layoutY="22.0" maxWidth="732.0" minWidth="732.0" prefWidth="732.0" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="140.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
@@ -39,17 +39,17 @@
           <RowConstraints maxHeight="50.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Creator:" GridPane.halignment="RIGHT">
+            <Label text="Creator:" GridPane.halignment="RIGHT" textFill="#1DB954">
                <padding>
                   <Insets right="6.0" />
                </padding>
             </Label>
-            <Label text="Playlist Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label text="Playlist Title:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" textFill="#1DB954">
                <padding>
                   <Insets right="6.0" />
                </padding>
             </Label>
-            <Label text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label text="Description:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" textFill="#1DB954">
                <padding>
                   <Insets right="6.0" />
                </padding>

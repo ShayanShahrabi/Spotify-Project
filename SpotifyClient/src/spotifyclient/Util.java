@@ -72,7 +72,7 @@ public class Util {
             }            
         }
         catch (Exception ex){
-            System.out.println("خطا در برقراری ارتباط با سرور");
+            System.out.println("server connection failed!");
         }
     }    
 
@@ -107,7 +107,7 @@ public class Util {
             }            
         }
         catch (Exception ex){
-            System.out.println("خطا در برقراری ارتباط با سرور");
+            System.out.println("server connection failed!");
         }
     }    
 

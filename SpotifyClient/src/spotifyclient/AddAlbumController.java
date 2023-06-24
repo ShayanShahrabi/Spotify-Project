@@ -15,7 +15,7 @@ import javafx.stage.FileChooser;
 
 public class AddAlbumController implements Initializable {
 
-    final String uID;                           //در واقع از این متغیر برای پاس شدن شناسه کاربر استفاده می کنیم
+    final String uID;
     
     @FXML
     TextField tfArtist;

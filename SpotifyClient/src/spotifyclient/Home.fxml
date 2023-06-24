@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="900.0" maxWidth="950.0" minHeight="900.0" minWidth="950.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: PapayaWhip;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotifyclient.HomeController">
+<AnchorPane id="AnchorPane" maxHeight="900.0" maxWidth="950.0" minHeight="900.0" minWidth="950.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotifyclient.HomeController">
    <children>
       <GridPane fx:id="gpHome" hgap="10.0" layoutX="69.0" layoutY="128.0" maxHeight="629.0" maxWidth="830.0" minHeight="630.0" minWidth="830.0" prefHeight="630.0" prefWidth="830.0" vgap="10.0">
         <columnConstraints>
@@ -24,7 +24,7 @@
             <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" valignment="CENTER" vgrow="NEVER" />
         </rowConstraints>
       </GridPane>
-      <Label alignment="CENTER" layoutX="416.0" layoutY="47.0" text="Recent Albums" textAlignment="CENTER" textFill="DARKBLUE">
+      <Label alignment="CENTER" layoutX="416.0" layoutY="47.0" text="Recent Albums" textAlignment="CENTER" textFill="#1db954">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -52,7 +52,6 @@ public class UserMenuController implements Initializable {
     
     
     String type;                //login form will fill this field
-    
     //--------------------------------------------------------------------------    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -61,7 +60,10 @@ public class UserMenuController implements Initializable {
     //--------------------------------------------------------------------------    
     @FXML
     private void btnHomeClicked(ActionEvent event){    
+        String uID;
         try {
+            uID = lblUserID.getText(); //شناسه كاربر
+            //
             ArrangeMenuColor("btnHome");
             //
             Parent fxml = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -133,6 +135,7 @@ public class UserMenuController implements Initializable {
             //
             ArrangeMenuColor("btnAddPlaylist");
             
+            
             //load FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("AddPlaylist.fxml"));
             //ایجاد سازنده کنترلر و پاس کردن پارامتر
@@ -152,33 +155,13 @@ public class UserMenuController implements Initializable {
     //--------------------------------------------------------------------------    
     @FXML
     private void btnSearchClicked(ActionEvent event){
-        String uID;
+        
         try {
-            uID = lblUserID.getText(); //شناسه کاربر
-            //
             ArrangeMenuColor("btnSearch");
             //
-            
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Search.fxml"));
-            //ایجاد سازنده کنترلر و پاس کردن پارامتر
-            SearchController sc = new SearchController(uID);
-            loader.setController(sc);
-            //
-            Parent fxml = loader.load();
-            //
-            anchorPaneUserMenuContent.getChildren().removeAll();
-            anchorPaneUserMenuContent.getChildren().setAll(fxml);
-            
-            
-/*            
-            
             Parent fxml = FXMLLoader.load(getClass().getResource("Search.fxml"));
             anchorPaneUserMenuContent.getChildren().removeAll();
             anchorPaneUserMenuContent.getChildren().setAll(fxml);
-            
-*/            
-            
-            
         } 
         catch (Exception ex) {
             Util.showAlert(Alert.AlertType.ERROR, ex.getMessage());
@@ -233,34 +216,34 @@ public class UserMenuController implements Initializable {
 
     //--------------------------------------------------------------------------    
     private void ArrangeMenuColor(String sw){
-        btnHome.setStyle("-fx-background-color: CornflowerBlue;-fx-text-fill:black;");
-        btnAddAlbum.setStyle("-fx-background-color:  CornflowerBlue;-fx-text-fill:black;");
-        btnAddSong.setStyle("-fx-background-color:  CornflowerBlue;-fx-text-fill:black;");
-        btnAddPlaylist.setStyle("-fx-background-color:  CornflowerBlue;-fx-text-fill:black;");
-        btnMyProfile.setStyle("-fx-background-color:  CornflowerBlue;-fx-text-fill:black;");
-        btnSearch.setStyle("-fx-background-color: CornflowerBlue;-fx-text-fill:black;");
-        btnLogout.setStyle("-fx-background-color: CornflowerBlue;-fx-text-fill:black;");
+        btnHome.setStyle("-fx-background-color: #212121;-fx-text-fill:#1DB954;");
+        btnAddAlbum.setStyle("-fx-background-color:  #212121;-fx-text-fill:#1DB954;");
+        btnAddSong.setStyle("-fx-background-color:  #212121;-fx-text-fill:#1DB954;");
+        btnAddPlaylist.setStyle("-fx-background-color:  #212121;-fx-text-fill:#1DB954;");
+        btnMyProfile.setStyle("-fx-background-color:  #212121;-fx-text-fill:#1DB954;");
+        btnSearch.setStyle("-fx-background-color: #212121;-fx-text-fill:#1DB954;");
+        btnLogout.setStyle("-fx-background-color: #212121;-fx-text-fill:#1DB954;");
         switch(sw){
             case "btnHome":
-                btnHome.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnHome.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
             case "btnAddAlbum":
-                btnAddAlbum.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnAddAlbum.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
             case "btnAddSong":
-                btnAddSong.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnAddSong.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
             case "btnAddPlaylist":
-                btnAddPlaylist.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnAddPlaylist.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;                
             case "btnMyProfile":
-                btnMyProfile.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnMyProfile.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
             case "btnSearch":
-                btnSearch.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnSearch.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
             case "btnLogout":
-                btnLogout.setStyle("-fx-background-color: darkblue;-fx-text-fill:white;");
+                btnLogout.setStyle("-fx-background-color: #1DB954;-fx-text-fill:#212121;");
                 break;
         }
     }

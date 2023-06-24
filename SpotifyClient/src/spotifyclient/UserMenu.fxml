@@ -10,15 +10,15 @@
 
 <AnchorPane fx:id="anchorPaneUserMenu" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotifyclient.UserMenuController">
    <children>
-      <AnchorPane fx:id="anchorPaneUserMenuContent" layoutX="506.0" layoutY="318.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: PapayaWhip;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox alignment="TOP_CENTER" layoutX="54.0" layoutY="-1.0" prefHeight="900.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: lightskyblue;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="anchorPaneUserMenuContent" layoutX="506.0" layoutY="318.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: #212121;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox alignment="TOP_CENTER" layoutX="54.0" layoutY="-1.0" prefHeight="900.0" prefWidth="250.0" spacing="20.0" style="-fx-background-color: #121212;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Main Menu" textFill="#2014c9">
+            <Label text="Spotify" textFill="#1db954">
                <font>
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#btnHomeClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Home">
+            <Button fx:id="btnHome" mnemonicParsing="false" onAction="#btnHomeClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Home" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -26,7 +26,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnAddAlbum" mnemonicParsing="false" onAction="#btnAddAlbumClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Add Album">
+            <Button fx:id="btnAddAlbum" mnemonicParsing="false" onAction="#btnAddAlbumClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Add Album" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -34,7 +34,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnAddSong" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnAddSongClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Add Song">
+            <Button fx:id="btnAddSong" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnAddSongClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Add Song" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnAddPlaylist" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnAddPlaylistClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Add Play List">
+            <Button fx:id="btnAddPlaylist" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnAddPlaylistClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Add Play List" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnSearch" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnSearchClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Search">
+            <Button fx:id="btnSearch" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnSearchClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Search" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -58,7 +58,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnMyProfile" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnMyProfileClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="My Profile">
+            <Button fx:id="btnMyProfile" layoutX="51.0" layoutY="42.0" mnemonicParsing="false" onAction="#btnMyProfileClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="My Profile" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="btnLogout" layoutX="42.0" layoutY="312.0" mnemonicParsing="false" onAction="#btnLogoutClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: CornflowerBlue;" text="Logout">
+            <Button fx:id="btnLogout" layoutX="42.0" layoutY="312.0" mnemonicParsing="false" onAction="#btnLogoutClicked" prefHeight="40.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Logout" textFill="#1DB954">
                <font>
                   <Font size="16.0" />
                </font>
@@ -74,12 +74,12 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="lblWelcome" layoutX="113.0" layoutY="432.0" text="Welcome" textFill="BROWN">
+            <Label fx:id="lblWelcome" layoutX="113.0" layoutY="432.0" text="Welcome" textFill="#1db954">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="lblUserID" text="userID" textFill="BROWN">
+            <Label fx:id="lblUserID" text="userID" textFill="#1db954">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

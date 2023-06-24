@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: PapayaWhip;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane fx:id="gpProfile" layoutX="65.0" layoutY="75.0" maxWidth="820.0" minWidth="820.0" prefWidth="820.0" AnchorPane.leftAnchor="65.0" AnchorPane.topAnchor="75.0">
         <columnConstraints>
@@ -31,42 +31,42 @@
             <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="ID:" GridPane.halignment="RIGHT">
+            <Label text="ID:" GridPane.halignment="RIGHT" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Full Namd:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+            <Label text="Full Namd:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Role:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Label text="Role:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Phone Number:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Label text="Phone Number:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+            <Label text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Address:" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+            <Label text="Address:" GridPane.halignment="RIGHT" GridPane.rowIndex="5" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Photo:" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <Label text="Photo:" GridPane.halignment="RIGHT" GridPane.rowIndex="6" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="(&lt;= 1MB)" textFill="BLUE" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+            <Label text="(&lt;= 1MB)" GridPane.halignment="RIGHT" GridPane.rowIndex="6" textFill="#1DB954">
                <font>
                   <Font size="10.0" />
                </font>
@@ -94,8 +94,8 @@
                   <Insets left="590.0" />
                </GridPane.margin>
             </Button>
-            <Label text="Playlist:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" />
-            <Label text="Albums:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+            <Label text="Playlist:" GridPane.halignment="RIGHT" GridPane.rowIndex="7" textFill="#1DB954"/>
+            <Label text="Albums:" GridPane.halignment="RIGHT" GridPane.rowIndex="8" textFill="#1DB954"/>
             <ImageView fx:id="ivPhoto" fitHeight="180.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <TextArea fx:id="taPlaylist" editable="false" maxHeight="90.0" maxWidth="700.0" minHeight="90.0" minWidth="700.0" prefHeight="90.0" prefWidth="700.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <TextArea fx:id="taAlbums" editable="false" maxHeight="90.0" maxWidth="600.0" minHeight="90.0" minWidth="700.0" prefHeight="90.0" prefWidth="600.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />

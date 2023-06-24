@@ -14,7 +14,7 @@ public class SpotifyClient extends Application {
     public static final int PORT_NUMBER = 4444;
     public static final String SERVER_ADDRESS = "localhost";
     
-    //--------------------------------------------------------------------------    
+    //--------------------------------------------------------------------------
     @Override
     public void start(Stage stage) throws Exception {
         try{

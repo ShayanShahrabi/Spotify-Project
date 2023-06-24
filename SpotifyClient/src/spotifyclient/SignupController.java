@@ -1,4 +1,3 @@
-
 package spotifyclient;
 
 import java.net.Socket;

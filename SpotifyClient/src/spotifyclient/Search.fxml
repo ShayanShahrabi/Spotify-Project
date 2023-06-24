@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" maxHeight="900.0" maxWidth="950.0" minHeight="900.0" minWidth="950.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: PapayaWhip;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" maxHeight="900.0" maxWidth="950.0" minHeight="900.0" minWidth="950.0" prefHeight="900.0" prefWidth="950.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="spotifyclient.SearchController">
    <children>
       <GridPane layoutX="166.0" layoutY="94.0" maxWidth="590.0" minWidth="590.0" prefHeight="35.0" prefWidth="590.0">
         <columnConstraints>
@@ -28,12 +28,13 @@
          <children>
             <TextField fx:id="tfSearch" maxWidth="344.0" minWidth="344.0" prefWidth="344.0" GridPane.columnIndex="1" />
             <ComboBox fx:id="cbSearchGroup" maxWidth="85.0" minWidth="85.0" prefHeight="25.0" prefWidth="85.0" GridPane.columnIndex="2" />
-            <Button fx:id="btnGo" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnGoClicked" prefWidth="50.0" style="-fx-background-color: DarkBlue;" text="Go" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="LEFT">
+            <Button fx:id="btnGo" maxWidth="50.0" minWidth="50.0" mnemonicParsing="false" onAction="#btnGoClicked" prefWidth="50.0" style="-fx-background-color: #1db954;" text="Go" textFill="#212121"
+                    GridPane.columnIndex="3" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets left="6.0" />
                </GridPane.margin>
             </Button>
-            <Label text="Search:" GridPane.halignment="RIGHT">
+            <Label text="Search:" GridPane.halignment="RIGHT" textFill="#1DB954">
                <GridPane.margin>
                   <Insets right="6.0" />
                </GridPane.margin>
@@ -42,11 +43,10 @@
       </GridPane>
       <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" layoutX="126.0" layoutY="235.0" maxWidth="715.0" minWidth="715.0" prefHeight="558.0" prefWidth="715.0" vbarPolicy="ALWAYS">
          <content>
-            <GridPane fx:id="gpReport" hgap="10.0" maxWidth="700.0" minWidth="700.0" prefHeight="556.0" prefWidth="700.0" style="-fx-background-color: PeachPuff;" vgap="10.0">
+            <GridPane fx:id="gpReport" hgap="10.0" maxWidth="700.0" minWidth="700.0" prefHeight="556.0" prefWidth="700.0" style="-fx-background-color: #343434;" vgap="10.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="220.0" prefWidth="220.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="400.0" prefWidth="400.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" prefWidth="80.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
                <opaqueInsets>
                   <Insets />
