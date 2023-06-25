@@ -18,8 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.DialogPane;
@@ -32,6 +30,8 @@ import java.net.URLEncoder;
 
 public class SearchController implements Initializable {
 
+    final String uID;                           //در واقع از این متغیر برای پاس شدن شناسه کاربر استفاده می کنیم
+    
     private MediaPlayer mediaPlayer;
     
     @FXML
@@ -46,6 +46,11 @@ public class SearchController implements Initializable {
     @FXML
     ImageView ivStop;
     
+    //--------------------------------------------------------------------------    
+    public SearchController(String userID){
+        this.uID = userID;
+    }
+        
     //--------------------------------------------------------------------------    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -160,7 +165,7 @@ public class SearchController implements Initializable {
         
         String cellInfo;
         int row;
-        String returnValue, fileName;
+        String returnValue, fileName, artistID = "";
         //جدول خروجی آماده شود
         //ابتدا محتویات پاک شود
         gpReport.getChildren().clear();
@@ -174,7 +179,10 @@ public class SearchController implements Initializable {
          firstColumnConstraints.setPrefWidth(220);
          // Set the width for the second column
          ColumnConstraints secondColumnConstraints = gpReport.getColumnConstraints().get(1);
-         secondColumnConstraints.setPrefWidth(480);
+         secondColumnConstraints.setPrefWidth(410);
+         // Set the width for the second column
+         ColumnConstraints thirdColumnConstraints = gpReport.getColumnConstraints().get(2);
+         secondColumnConstraints.setPrefWidth(70);
         try {
             Socket socket = new Socket(SpotifyClient.SERVER_ADDRESS, SpotifyClient.PORT_NUMBER);
             //خط زیر بسیار ضروری است زیرا زمان خواند فایل از سوکت دستور خواندن بلاکینک است و اگر خط زیر نباشد خواندن از سوکت در آخرین اجرای حلقه به 
@@ -212,17 +220,32 @@ public class SearchController implements Initializable {
                 Text cellText = new Text();
                 cellText.setFill(Paint.valueOf("1db954"));
                 cellInfo = "";
-                for(int i = 1; i < 3; i++)
+                for(int i = 1; i < 5; i++)
                 {
                     returnValue = Util.readFromSocket(scannerSocket);
-                    //
-                    cellInfo += returnValue + "\n";
+                    if(i == 1){
+                        artistID = returnValue;             //اولین آیتم شناسه خواننده است که برای لایک کردن لازم داریم در سلول بعدی
+                    }
+                    else{
+                        cellInfo += returnValue + "\n";
+                    }
                 }
                 cellText.setText(cellInfo);
                 // Add the text to the second cell of the current row
-                cellText.setWrappingWidth(470);
+                cellText.setWrappingWidth(400);
                 cellText.setTextAlignment(TextAlignment.LEFT);
                 gpReport.add(cellText, 1, row);
+                //حالا تصویر لایک به سلول سوم اضافه شود
+                fileName = "\\Files\\" + "Like" + ".jpg";
+                fileName = "file:///" + System.getProperty("user.dir") + fileName;
+                image = new Image(fileName);
+                imageView = new ImageView(image);
+                //
+                LikeSingerParameters lsp = new LikeSingerParameters(this.uID, artistID);
+                //
+                imageView.setOnMouseClicked(event -> likeSinger(lsp));
+                //حالا تصویر لایک به سلول اضافه شود
+                gpReport.add(imageView, 2, row);                
                 // Set the height of the current row
                 RowConstraints rowConstraints = new RowConstraints();
                 rowConstraints.setPrefHeight(220);
@@ -266,10 +289,13 @@ public class SearchController implements Initializable {
         gpReport.setVgap(10.0);
         // Set the width for the first column
          ColumnConstraints firstColumnConstraints = gpReport.getColumnConstraints().get(0);
-         firstColumnConstraints.setPrefWidth(100);
+         firstColumnConstraints.setPrefWidth(50);
          // Set the width for the second column
          ColumnConstraints secondColumnConstraints = gpReport.getColumnConstraints().get(1);
          secondColumnConstraints.setPrefWidth(600);
+         // Set the width for the second column
+         ColumnConstraints thirdColumnConstraints = gpReport.getColumnConstraints().get(2);
+         secondColumnConstraints.setPrefWidth(50);
         try {
             Socket socket = new Socket(SpotifyClient.SERVER_ADDRESS, SpotifyClient.PORT_NUMBER);
             //خط زیر بسیار ضروری است زیرا زمان خواند فایل از سوکت دستور خواندن بلاکینک است و اگر خط زیر نباشد خواندن از سوکت در آخرین اجرای حلقه به 
@@ -402,9 +428,9 @@ public class SearchController implements Initializable {
                 fileName = "file:///" + System.getProperty("user.dir") + fileName;
                 Image image = new Image(fileName);
                 ImageView imageView = new ImageView(image);
-                PlaySongOnActionParameters hlSong = new PlaySongOnActionParameters(userID, songTitle);
+                PlaySongOnActionParameters playSongParameters = new PlaySongOnActionParameters(userID, songTitle);
                 //
-                imageView.setOnMouseClicked(event -> downloadSong(hlSong));
+                imageView.setOnMouseClicked(event -> downloadSong(playSongParameters));
                 //حالا تصویر پلی به سلول اضافه شود
                 gpReport.add(imageView, 0, row);                
                 //
@@ -430,15 +456,12 @@ public class SearchController implements Initializable {
     }
     
     //--------------------------------------------------------------------------    
-//    private void downloadSong(String userID, String songTitle) {
     private void downloadSong(PlaySongOnActionParameters hlSong) {    
-        String fullName, role, phoneNumber, email, address, playlists, albums;
         String message, fileName;
         //
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setHeaderText(null);
         alert.setContentText("Confirm?");
-        DialogPane dialogPane = alert.getDialogPane();
         Optional <ButtonType> result = alert.showAndWait();
         if (!result.isPresent() || result.get() != ButtonType.OK){
             return;
@@ -483,6 +506,38 @@ public class SearchController implements Initializable {
         catch(Exception ex){            
         }
     }    
+    
+    //--------------------------------------------------------------------------    
+    private void likeSinger(LikeSingerParameters lsp){
+        String message;
+        //
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setHeaderText(null);
+        alert.setContentText("Confirm?");
+        DialogPane dialogPane = alert.getDialogPane();
+        Optional <ButtonType> result = alert.showAndWait();
+        if (!result.isPresent() || result.get() != ButtonType.OK){
+            return;
+        }
+        try{
+            //لایک تایید شده است
+            Socket socket = new Socket(SpotifyClient.SERVER_ADDRESS, SpotifyClient.PORT_NUMBER);
+            Scanner scannerSocket = new Scanner(socket.getInputStream());        
+            //حالا اطلاعات برای سرور ارسال شود
+            Util.write2Socket(socket, "_LikeSinger");
+            Util.write2Socket(socket, lsp.getUserID());
+            Util.write2Socket(socket, lsp.getSingerID());
+            //حالا جواب سرور را بگیر
+            message  = Util.readFromSocket(scannerSocket);              //"OK" or "Already Liked!"
+            if(!message.equals("OK")){
+                Util.showAlert(Alert.AlertType.INFORMATION,"You Have Alrady Liked This Singer!");
+                return;
+            }
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+    }
     //--------------------------------------------------------------------------    
     @FXML
     private void btnGoClicked(ActionEvent event) {
@@ -545,4 +600,3 @@ public class SearchController implements Initializable {
     }
         
 }
-
