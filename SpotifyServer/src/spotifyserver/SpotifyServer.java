@@ -18,7 +18,7 @@ public class SpotifyServer {
     SpotifyServer(){
     }
     //------------------------------------------------------------
-    private String readFromSocket(Scanner scannerSocket){
+    private String readFromSocket2(Scanner scannerSocket){
         String result = "";
         try{
             if(scannerSocket.hasNext()){
@@ -27,7 +27,7 @@ public class SpotifyServer {
         }
         catch (Exception ex){
             System.out.println(ex.getMessage());
-        }     
+        }
         return result;
     }
     
@@ -44,7 +44,7 @@ public class SpotifyServer {
     }
     
     //------------------------------------------------------------
-    //از این روتین برای ارسال فایل روی پورت استفاده می شود
+    //this is used to send data
     private void sendFile2Port(Socket socket, String fileName){
         
         try {
@@ -71,7 +71,7 @@ public class SpotifyServer {
     }
     
     //------------------------------------------------------------
-    //از این روتین برای ارسال فایل روی پورت استفاده می شود
+    //send file to port 
     private void sendFile2PortUsingOutputStream(OutputStream outputStream, String fileName){
         
         try {
@@ -94,11 +94,11 @@ public class SpotifyServer {
     }
     
     //------------------------------------------------------------
-    //یک فایل جدید ایجاد می کند و در مسیر مشخص شده ذخیره می شود
+    //save the files in the intended path
     private void getFileFromPort(Socket socket, String fileName){
 
         try{
-            //حالا با یک پروتکلی باید فایل را از سوکت بخوانیم
+            //reading files from socket
             try {
                 // Get the input stream of the socket
                 InputStream inputStream = socket.getInputStream();
@@ -128,9 +128,9 @@ public class SpotifyServer {
             socket.close();
         }
         catch (Exception ex){
-            System.out.println("خطا در برقراری ارتباط با سرور");
+            System.out.println("server connection failed!");
         }
-    }    
+    }
     
     //------------------------------------------------------------
     public static String hash(String input) {
@@ -158,20 +158,20 @@ public class SpotifyServer {
         String userID, password, type, fullName, email, address, phoneNumber;
         String SQLCommand, returnValue = "Error";
         System.out.println("Request: Create Account\n");
-        //شناسه و رمز عبور و تاریخ تولد از سوکت خواند شود
-        userID = readFromSocket(scannerSocket);
-        password = readFromSocket(scannerSocket);
-        type = readFromSocket(scannerSocket);
-        fullName = readFromSocket(scannerSocket);
-        email = readFromSocket(scannerSocket);
-        address = readFromSocket(scannerSocket);
-        phoneNumber = readFromSocket(scannerSocket);
+        //read user Id, passsword, role, email, phone number and etc from socket
+        userID = readFromSocket2(scannerSocket);
+        password = readFromSocket2(scannerSocket);
+        type = readFromSocket2(scannerSocket);
+        fullName = readFromSocket2(scannerSocket);
+        email = readFromSocket2(scannerSocket);
+        address = readFromSocket2(scannerSocket);
+        phoneNumber = readFromSocket2(scannerSocket);
         //
         String hashedPassword = hash(password.trim());
         //
         try{
-            SQLCommand = "Insert Into Accounts (userID, pass, type, fullName, email, address, phoneNumber, likes) Values( '" + userID + "', '" + hashedPassword + "', '" + type + "', '" + fullName + "', '" +
-                         email + "', '" + address + "', '" + phoneNumber + "', 0)";
+            SQLCommand = "Insert Into Accounts (userID, pass, type, fullName, email, address, phoneNumber) Values( '" + userID + "', '" + hashedPassword + "', '" + type + "', '" + fullName + "', '" +
+                         email + "', '" + address + "', '" + phoneNumber + "')";
             DBManager dbManager = new DBManager();
             returnValue = dbManager.runSQLCommand(SQLCommand);       //Will return "Error" or "OK"
         }
@@ -187,9 +187,9 @@ public class SpotifyServer {
         String SQLCommand;
         
         System.out.println("Request: Login\n");
-        //شناسه و رمز عبور و تاریخ تولد از سوکت خواند شود
-        userID = readFromSocket(scannerSocket);
-        password = readFromSocket(scannerSocket);
+        //userId and password is read from the socket
+        userID = readFromSocket2(scannerSocket);
+        password = readFromSocket2(scannerSocket);
         //
         hashedPassword = hash(password.trim());
         DBManager dbManager = new DBManager();
@@ -206,11 +206,11 @@ public class SpotifyServer {
         String albumCoverFileName;
         String SQLCommand, returnValue = "Error";
         System.out.println("Request: Add Album\n");
-        //خواندن اطلاعات از ورودی
-        userID = readFromSocket(scannerSocket);
-        albumTitle = readFromSocket(scannerSocket);
-        genre = readFromSocket(scannerSocket);
-        releasedDate = readFromSocket(scannerSocket);
+        //reading information from socket
+        userID = readFromSocket2(scannerSocket);
+        albumTitle = readFromSocket2(scannerSocket);
+        genre = readFromSocket2(scannerSocket);
+        releasedDate = readFromSocket2(scannerSocket);
         //
         try{
             SQLCommand = "Insert Into Album (userID, albumTitle, genre, releasedDate, popularity) Values( '" + userID + "', '" + albumTitle + "', '" + genre + "', '" + releasedDate + "', 0)";
@@ -220,7 +220,7 @@ public class SpotifyServer {
         catch (Exception ex){            
         }
         write2Socket(socket, returnValue);
-        if(returnValue.equals("OK")){             //فایل روکش آلبوم دریافت شود
+        if(returnValue.equals("OK")){             //recieves album cover if allowed 
             albumCoverFileName = "Album-" + userID + "-" + albumTitle + ".jpg";
             getFileFromPort(socket, albumCoverFileName);
         }
@@ -229,18 +229,18 @@ public class SpotifyServer {
     //------------------------------------------------------------
     private void getListHandler(Scanner scannerSocket, Socket socket){
         String SQLSelect, selectField;
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         //
         System.out.println("Request: Get List\n");
         //خواندن اطلاعات از ورودی
-        SQLSelect = readFromSocket(scannerSocket);
-        selectField = readFromSocket(scannerSocket);
+        SQLSelect = readFromSocket2(scannerSocket);
+        selectField = readFromSocket2(scannerSocket);
         //
         try{
-            //اطلاعات از پایگاه داده خوانده شود
+            //reading data
             DBManager dbManager = new DBManager();
-            dbManager.getList(SQLSelect, selectField, list);  //اینجا لیست پر می شود
-            //حالا لیست روی سوکت نوشته شود
+            dbManager.getList(SQLSelect, selectField, list);  //the list is made
+            //writing data
             for(int i = 0; i < list.size(); i++){
                 write2Socket(socket, list.get(i));
             }
@@ -256,13 +256,13 @@ public class SpotifyServer {
         String songFileName;
         String SQLCommand, returnValue = "Error";
         System.out.println("Request: Add Song\n");
-        //خواندن اطلاعات از ورودی
-        userID = readFromSocket(scannerSocket);
-        songTitle = readFromSocket(scannerSocket);
-        albumTitle = readFromSocket(scannerSocket);
-        genre = readFromSocket(scannerSocket);
-        duration  = readFromSocket(scannerSocket);
-        releasedDate = readFromSocket(scannerSocket);
+        //read
+        userID = readFromSocket2(scannerSocket);
+        songTitle = readFromSocket2(scannerSocket);
+        albumTitle = readFromSocket2(scannerSocket);
+        genre = readFromSocket2(scannerSocket);
+        duration  = readFromSocket2(scannerSocket);
+        releasedDate = readFromSocket2(scannerSocket);
         //
         try{
             SQLCommand = "Insert Into Song (userID, SongTitle, albumTitle, genre, duration, releasedDate, popularity) Values( '" + userID + "', '" + songTitle + "', '" + albumTitle + "', '" + genre + "', '" + duration + "', '" + releasedDate + "', 0)";
@@ -272,7 +272,7 @@ public class SpotifyServer {
         catch (Exception ex){            
         }
         write2Socket(socket, returnValue);
-        if(returnValue.equals("OK")){             //فایل موسیقی دریافت شود
+        if(returnValue.equals("OK")){             //getting the mp3 file
             songFileName = "Song-" + userID + "-" + songTitle + ".MP3";
             getFileFromPort(socket, songFileName);
         }
@@ -287,22 +287,22 @@ public class SpotifyServer {
         System.out.println("Request: Add Playlist\n");
         //
         DBManager dbManager;
-        //خواندن اطلاعات از ورودی
-        userID = readFromSocket(scannerSocket);
-        playlistTitle = readFromSocket(scannerSocket);
-        description = readFromSocket(scannerSocket);
+        //read
+        userID = readFromSocket2(scannerSocket);
+        playlistTitle = readFromSocket2(scannerSocket);
+        description = readFromSocket2(scannerSocket);
         //
         try{
             SQLCommandList.add("Insert Into Playlist (userID, playlistTitle, description, popularity) Values( '" + userID + "', '" + playlistTitle + "', '" + description + "', 0)");
-            //حالا موسیقی های مربوط به این پلی لیست اضافه شود
-            //یکی یکی از پورت خواند شود
-            returnValue = readFromSocket(scannerSocket);
+            //adding related songs
+            //reading from port one by one
+            returnValue = readFromSocket2(scannerSocket);
             while(!returnValue.equals("Finished")){
                 index = returnValue.indexOf(" / ");
                 artistID = returnValue.substring(0, index);
                 songTitle = returnValue.substring(index + 3);
                 SQLCommandList.add("Insert Into PlaylistSong (userID, playlistTitle, artistID, songTitle) Values( '" + userID + "', '" + playlistTitle + "', '" + artistID + "', '" + songTitle + "')");
-                returnValue = readFromSocket(scannerSocket);
+                returnValue = readFromSocket2(scannerSocket);
             }
             dbManager = new DBManager();
             SQLResult = dbManager.runSQLCommandList(SQLCommandList);       //Will return "Error" or "OK"
@@ -310,7 +310,7 @@ public class SpotifyServer {
         catch (Exception ex){            
             SQLResult = "Error";
         }
-        //موفقیت یا عدم موفقیت در پورت نوشته شود
+        //outputs the result of the request
         write2Socket(socket, SQLResult);
     }
 
@@ -321,8 +321,8 @@ public class SpotifyServer {
         List <Album> albumList;
         List <String> songList;
         System.out.println("Request: Search on Album\n");
-        //خواندن اطلاعات از ورودی
-        searchKey = readFromSocket(scannerSocket);
+        //read
+        searchKey = readFromSocket2(scannerSocket);
         //
         try{
             // Get the output stream of the socket
@@ -330,27 +330,27 @@ public class SpotifyServer {
             //
             DBManager dbManager = new DBManager();           
             albumList = new ArrayList<>();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            //get data request
             dbManager.albumSearch(searchKey, albumList);
-            //ارسال خروجی روی پورت
+            //send result
             for (Album album : albumList) {
-                //ارسال آماده باش که سطر شروع شد
+                //start line
                 write2Socket(socket, "Row Started");
-                //قبل و بعد از ارسال فایل تصویر باید از سوکت بخوانیم تا برنامه درست کار کند
-                readFromSocket(scannerSocket);                      //Message: "Get Image"                
-                //عکس کاور آلبوم را ابتدا می فرستیم
+                //in order to run properly we need to read before and after the image being transfered
+                readFromSocket2(scannerSocket);                      //Message: "Get Image"
+                //send album cover
                 fileName = System.getProperty("user.dir") + "\\Media\\Album-" + album.getUserID() + "-" + album.getAlbumTitle() + ".jpg";
                 sendFile2PortUsingOutputStream(outputStream, fileName);
-                //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
-                readFromSocket(scannerSocket);                      //Message: "Image Received"
-                //حالا فیلدهای آلبوم را ارسال می کنیم
+                //get confirmation that the image has been fully transfered 
+                readFromSocket2(scannerSocket);                      //Message: "Image Received"
+                //sending album fields
                 albumTitle = album.getAlbumTitle();
                 write2Socket(socket, "Title: " + albumTitle);
                 write2Socket(socket, "Singer:" + album.getSinger());
                 write2Socket(socket, "Genre: " + album.getGenre());
                 write2Socket(socket, "Release Date: " + album.getReleaseDate());
                 userID = album.getUserID();
-                //حالا آهنگها را اولا از پایگاه داده می خوانیم و بعد ارسال می کنیم
+                //read and send the music 
                 songList = new ArrayList<>();
                 SQLSelect = "Select SongTitle From Song Where userID = '" + userID + "' And albumTitle = '" + albumTitle + "' Order By SongTitle";
                 dbManager.getList(SQLSelect, "SongTitle", songList);
@@ -361,7 +361,7 @@ public class SpotifyServer {
                     }
                     songs += song;
                 }                
-                //حالا در یک خط کل موسیقی ها ارسال شود
+                //send all the songs
                 write2Socket(socket, songs);           
             }
             //
@@ -380,8 +380,8 @@ public class SpotifyServer {
         List <Singer> singerList;
         List <String> songList;
         System.out.println("Request: Search on Singer\n");
-        //خواندن اطلاعات از ورودی
-        searchKey = readFromSocket(scannerSocket);
+        //read
+        searchKey = readFromSocket2(scannerSocket);
         //
         try{
             // Get the output stream of the socket
@@ -389,26 +389,23 @@ public class SpotifyServer {
             //
             DBManager dbManager = new DBManager();           
             singerList = new ArrayList<>();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            //data request
             dbManager.singerSearch(searchKey, singerList);
-            //ارسال خروجی روی پورت
+            //send
             for (Singer singer : singerList) {
-                //ارسال آماده باش که سطر شروع شد
+                //conformation
                 write2Socket(socket, "Row Started");
-                //قبل و بعد از ارسال فایل تصویر باید از سوکت بخوانیم تا برنامه درست کار کند
-                readFromSocket(scannerSocket);                      //Message: "Get Image"                
-                //عکس کاور آلبوم را ابتدا می فرستیم
+                //double check before and after image being transfered
+                readFromSocket2(scannerSocket);                      //Message: "Get Image"
+                //image cover
                 fileName = System.getProperty("user.dir") + "\\Media\\User-" + singer.getUserID() + ".jpg";
                 sendFile2PortUsingOutputStream(outputStream, fileName);
-                //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
-                readFromSocket(scannerSocket);                      //Message: "Image Received"
-                //حالا فیلدهای آلبوم را ارسال می کنیم
-                write2Socket(socket, singer.getUserID());           //شناسه خواننده ارسال شود
+                //get confirmation that the image has been fully transfered 
+                readFromSocket2(scannerSocket);                      //Message: "Image Received"
+                //send album fields
                 write2Socket(socket, "Singer: " + singer.getFullName());
-                write2Socket(socket, "likes: " + singer.getLikes());
-                //
                 userID = singer.getUserID();
-                //حالا آهنگها را اولا از پایگاه داده می خوانیم و بعد ارسال می کنیم
+                //read and send the songs
                 songList = new ArrayList<>();
                 SQLSelect = "Select albumTitle || ' / ' || SongTitle As song From Song Where userID = '" + userID + "' Order By albumTitle, SongTitle";
                 dbManager.getList(SQLSelect, "song", songList);
@@ -418,8 +415,7 @@ public class SpotifyServer {
                         songs += ", ";
                     }
                     songs += song;
-                }                
-                //حالا در یک خط کل موسیقی ها ارسال شود
+                }
                 write2Socket(socket, songs);           
             }
             //
@@ -437,27 +433,27 @@ public class SpotifyServer {
         List <Playlist> playlistList;
         List <String> songList;
         System.out.println("Request: Search on Playlist\n");
-        //خواندن اطلاعات از ورودی
-        searchKey = readFromSocket(scannerSocket);
+        //read
+        searchKey = readFromSocket2(scannerSocket);
         //
         try{
             // Get the output stream of the socket
             //
             DBManager dbManager = new DBManager();           
             playlistList = new ArrayList<>();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            //send request
             dbManager.playlistSearch(searchKey, playlistList);
-            //ارسال خروجی روی پورت
+            //send result
             for (Playlist playlist : playlistList) {
-                //ارسال آماده باش که سطر شروع شد
+                //اget ready
                 write2Socket(socket, "Row Started");
-                //حالا فیلدهای آلبوم را ارسال می کنیم
+                //album fields
                 userID = playlist.getUserID();
                 playlistTitle = playlist.getPlaylistTitle();
                 write2Socket(socket, "Title: " + playlistTitle);
                 write2Socket(socket, "Creator: " + playlist.getFullName());
                 write2Socket(socket, "Description: " + playlist.getDescription());
-                //حالا آهنگ های پلی لیست را اولا از پایگاه داده می خوانیم و بعد ارسال می کنیم
+                //read and send songs
                 songList = new ArrayList<>();
                 select1 = "(Select artistID, songTitle From Playlist Left Join PlaylistSong on Playlist.userID = PlaylistSong.userID And Playlist.playlistTitle = PlaylistSong.playlistTitle Where Playlist.userID = '" + userID + "' And Playlist.playlistTitle = '" + playlistTitle + "') As Select1";
                 SQLSelect = "Select fullName || ' / ' || songTitle As song From " + select1 + " Left Join Accounts On Select1.artistID = Accounts.userID Order By fullName, SongTitle";
@@ -468,8 +464,7 @@ public class SpotifyServer {
                         songs += ", ";
                     }
                     songs += song;
-                }                
-                //حالا در یک خط کل موسیقی ها ارسال شود
+                }
                 write2Socket(socket, songs);           
             }
             //
@@ -485,20 +480,20 @@ public class SpotifyServer {
         List <Song> songList;
         System.out.println("Request: Search on Song\n");
         //خواندن اطلاعات از ورودی
-        searchKey = readFromSocket(scannerSocket);
+        searchKey = readFromSocket2(scannerSocket);
         //
         try{
             // Get the output stream of the socket
             //
             DBManager dbManager = new DBManager();           
             songList = new ArrayList<>();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            
             dbManager.songSearch(searchKey, songList);
-            //ارسال خروجی روی پورت
-            for (Song song : songList) {
-                //ارسال آماده باش که سطر شروع شد
+            
+            for (Song song : songList){
+                
                 write2Socket(socket, "Row Started");
-                //حالا فیلدهای آلبوم را ارسال می کنیم
+                
                 write2Socket(socket, "UserID: " + song.getUserID());
                 write2Socket(socket, "Song: " + song.getSongTitle());
                 write2Socket(socket, "Album: " + song.getAlbumTitle());
@@ -518,17 +513,17 @@ public class SpotifyServer {
     private void myProfileHandler(Scanner scannerSocket, Socket socket){                
         String userID, message, fileName;
         System.out.println("Request: Profile Request\n");
-        //خواندن اطلاعات از ورودی
-        userID = readFromSocket(scannerSocket);
+        //read
+        userID = readFromSocket2(scannerSocket);
         //
         try{
             // Get the output stream of the socket
             OutputStream outputStream = socket.getOutputStream();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            //send request
             DBManager dbManager = new DBManager();   
             Profile profile = new Profile(userID, "", "", "", "", "", "", "");
             dbManager.getProfile(profile);
-            //حالا فیلدهای آلبوم را ارسال می کنیم
+            //album fields
             write2Socket(socket, profile.getFullName());
             write2Socket(socket, profile.getRole());
             write2Socket(socket, profile.getPhoneNumber());
@@ -536,19 +531,19 @@ public class SpotifyServer {
             write2Socket(socket, profile.getAddress());
             write2Socket(socket, profile.getPlaylists());
             write2Socket(socket, profile.getAlbums());
-            //حالا فایل عکس اگر هست ارسال شود
-            //اول کلاینت سوال می کند عکس داری؟
-            message = readFromSocket(scannerSocket);       //The massage is "Have Photo?"
-            //حالا بررسی می کنیم ببینیم فایل موجود هست با خیر
+            //send image
+            //ask if the image exist
+            message = readFromSocket2(scannerSocket);       //The massage is "Have Photo?"
+            //does it really exist?
             fileName = System.getProperty("user.dir") + "\\Media\\User-" + userID + ".jpg";
             File file = new File(fileName);
             if (file.exists()){
                 write2Socket(socket, "Yes");
-                message = readFromSocket(scannerSocket);       //The massage is "Please send the image file"
-                //حالا فایل تصویر ارسال شود
+                message = readFromSocket2(scannerSocket);       //The massage is "Please send the image file"
+                //send it
                 sendFile2PortUsingOutputStream(outputStream, fileName);
-                //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
-                message = readFromSocket(scannerSocket);                      //Message: "Image Received"
+                //conformation
+                message = readFromSocket2(scannerSocket);                      //Message: "Image Received"
             }
             else{
                 write2Socket(socket, "No");
@@ -564,11 +559,10 @@ public class SpotifyServer {
         String userID;
         String userPhotoFileName;
         System.out.println("Request: Get User Image\n");
-        //خواندن اطلاعات از ورودی
-        userID = readFromSocket(scannerSocket);
-        //خط بعد صرفا برای این است که بین دو نوشتن یک خواندن انجام شود
+        //read
+        userID = readFromSocket2(scannerSocket);
         write2Socket(socket, "Send File");
-        //خواندن فایل عکس کاربر از سوکت
+        //read image
         userPhotoFileName = "User-" + userID + ".jpg";
         getFileFromPort(socket, userPhotoFileName);
     }
@@ -586,29 +580,28 @@ public class SpotifyServer {
             //
             DBManager dbManager = new DBManager();           
             albumList = new ArrayList<>();
-            //درخواست دریافت اطلاعات در پایگاه داده
+            //request data
             dbManager.get8RecentAlbums(albumList);
-            //ارسال خروجی روی پورت
+            //send output
             for (Album album : albumList) {
-                //ارسال آماده باش که سطر شروع شد
+                //send start alarm
                 write2Socket(socket, "Row Started");
-                //قبل و بعد از ارسال فایل تصویر باید از سوکت بخوانیم تا برنامه درست کار کند
-                readFromSocket(scannerSocket);                      //Message: "Have Photo?"
-                //حالا بررسی می کنیم ببینیم فایل موجود هست با خیر
+                //double check
+                readFromSocket2(scannerSocket);                      //Message: "Have Photo?"
                 fileName = System.getProperty("user.dir") + "\\Media\\Album-" + album.getUserID() + "-" + album.getAlbumTitle() + ".jpg";
                 File file = new File(fileName);
                 if (file.exists()){
                     write2Socket(socket, "Yes");
-                    message = readFromSocket(scannerSocket);       //The massage is "Please send the image file"
-                    //حالا فایل تصویر ارسال شود
+                    message = readFromSocket2(scannerSocket);       //The massage is "Please send the image file"
+                    //send image
                     sendFile2PortUsingOutputStream(outputStream, fileName);
-                    //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
-                    message = readFromSocket(scannerSocket);                      //Message: "Image Received"
+                    //conformation
+                    message = readFromSocket2(scannerSocket);                      //Message: "Image Received"
                 }
                 else{
                     write2Socket(socket, "No");
                 }
-                //حالا فیلدهای آلبوم را ارسال می کنیم
+                //send album fields
                 albumTitle = album.getAlbumTitle();
                 write2Socket(socket, "Title: " + albumTitle);
                 write2Socket(socket, "Singer:" + album.getSinger());
@@ -632,23 +625,23 @@ public class SpotifyServer {
         try{
             // Get the output stream of the socket
             OutputStream outputStream = socket.getOutputStream();
-            //خواندن اطلاعات از ورودی
-            userID = readFromSocket(scannerSocket);
-            songTitle = readFromSocket(scannerSocket);
-            //خط بعد صرفا برای این است که بین دو نوشتن یک خواندن انجام شود
-            message = readFromSocket(scannerSocket);                            //message = "Have MP3?"
-            //خواندن فایل موسیقی کاربر از سوکت
+            //read from database
+            userID = readFromSocket2(scannerSocket);
+            songTitle = readFromSocket2(scannerSocket);
+            //double check
+            message = readFromSocket2(scannerSocket);                            //message = "Have MP3?"
+            //get mp3 file
             songFileName = "Song-" + userID + "-" + songTitle + ".MP3";
-            //چک شود آیا فایل هست یا خیر
+            //does it exist!
             fileName = System.getProperty("user.dir") + "\\Media\\" + songFileName;
             File file = new File(fileName);
             if (file.exists()){
                 write2Socket(socket, "Yes");
-                message = readFromSocket(scannerSocket);       //The massage is "Please send the song file"
-                //حالا فایل تصویر ارسال شود
+                message = readFromSocket2(scannerSocket);       //The massage is "Please send the song file"
+                //send inmage
                 sendFile2PortUsingOutputStream(outputStream, fileName);
-                //حالا تاییدیه می گیرد که تصویر خوانده شده است این لازم است زیرا اگر درجا شروع به نوشتن باقی اطلاعات کنیم برنامه درست کار نمی کند
-                message = readFromSocket(scannerSocket);                      //Message: "File Received"
+                //conformation
+                message = readFromSocket2(scannerSocket);                      //Message: "File Received"
             }
             else{
                 write2Socket(socket, "No");
@@ -658,42 +651,7 @@ public class SpotifyServer {
             System.out.println("Exception in getSongHandler : " + ex.getMessage());
         }
     }
-
-    //------------------------------------------------------------
-    //اگر قبلا کاربر خواننده را لایک کرده باشد آلردی لایکد و در غیراینصورت اکی در پورت نوشته می شود
-    private void likeSingerHandler(Scanner scannerSocket, Socket socket){                
-        String userID, artistID;
-        String SQLSelect, result;
-        System.out.println("Request: Like Singer\n");
-        try{
-            //خواندن اطلاعات از ورودی
-            userID = readFromSocket(scannerSocket);
-            artistID = readFromSocket(scannerSocket);
-            //
-            DBManager dbManager = new DBManager();           
-            //
-
-
-
-
-            SQLSelect = "Insert Into LikeArtist (userID, artistID) Values( '" + userID + "', '" + artistID + "')";
-            result = dbManager.runSQLCommand(SQLSelect);
-            //            
-            if (result.equals("Error")){
-                write2Socket(socket, "Already Liked!");
-            }
-            else{
-                write2Socket(socket, "OK");
-                //حالا یکی به لایک های این خواننده اضافه شود
-                SQLSelect = "Update Accounts Set likes = likes + 1 Where userID = '" + artistID + "'";
-                dbManager.runSQLCommand(SQLSelect);
-            }
-        }
-        catch (Exception ex){
-            System.out.println("Exception in likeSingerHandler : " + ex.getMessage());
-        }
-    }
-    
+        
     //------------------------------------------------------------
     private void distibuteJobs(){
         Socket socket;
@@ -702,18 +660,17 @@ public class SpotifyServer {
             ServerSocket serverSocket = new ServerSocket(PORTNUMBER);
             while(true) {
                 System.out.println("Listening ...\n");
-                //بعد از خط زیر اجرا متوقف می شود تا ورودی بیاید
+                //makes the event until a message is sent.
                 socket = serverSocket.accept();
                 Scanner scannerSocket = new Scanner(socket.getInputStream());        
-                //خواندن از پورت
-                serviceName = readFromSocket(scannerSocket);
+                //read from port
+                serviceName = readFromSocket2(scannerSocket);
                 //
                 ThreadParameters tp = new ThreadParameters(scannerSocket, socket);                
                 //
                 switch(serviceName){
                     case "_CreateAccount":
                         // createAccountHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread createAccountThread = new Thread(() -> createAccountHandler(tp.getScannerSocket(), tp.getSocket()));
                         createAccountThread.start();
                         //
@@ -722,7 +679,6 @@ public class SpotifyServer {
                         break;
                     case "_Login":
                         // loginHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread loginThread = new Thread(() -> loginHandler(tp.getScannerSocket(), tp.getSocket()));
                         loginThread.start();
                         //
@@ -731,7 +687,6 @@ public class SpotifyServer {
                         break;
                     case "_Home":
                         // homeHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread homeThread = new Thread(() -> homeHandler(tp.getScannerSocket(), tp.getSocket()));
                         homeThread.start();
                         //
@@ -740,7 +695,6 @@ public class SpotifyServer {
                         break;
                     case "_AddAlbum":
                         // addAlbumHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread addAlbumThread = new Thread(() -> addAlbumHandler(tp.getScannerSocket(), tp.getSocket()));
                         addAlbumThread.start();
                         //
@@ -749,7 +703,6 @@ public class SpotifyServer {
                         break;
                     case "_AddSong":
                         // addSongHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread addSongThread = new Thread(() -> addSongHandler(tp.getScannerSocket(), tp.getSocket()));
                         addSongThread.start();
                         //
@@ -758,7 +711,6 @@ public class SpotifyServer {
                         break;
                     case "_AddPlaylist":
                         // addPlaylistHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread addPlaylistThread = new Thread(() -> addPlaylistHandler(tp.getScannerSocket(), tp.getSocket()));
                         addPlaylistThread.start();
                         //
@@ -767,7 +719,6 @@ public class SpotifyServer {
                         break;
                     case "_SearchAlbum":
                         // searchAlbumHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread searchAlbumThread = new Thread(() -> searchAlbumHandler(tp.getScannerSocket(), tp.getSocket()));
                         searchAlbumThread.start();
                         //
@@ -776,7 +727,6 @@ public class SpotifyServer {
                         break;
                     case "_SearchSinger":
                         // searchSingerHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread searchSingerThread = new Thread(() -> searchSingerHandler(tp.getScannerSocket(), tp.getSocket()));
                         searchSingerThread.start();
                         //
@@ -785,7 +735,6 @@ public class SpotifyServer {
                         break;
                     case "_SearchPlaylist":
                         // searchPlaylistHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread searchPlaylistThread = new Thread(() -> searchPlaylistHandler(tp.getScannerSocket(), tp.getSocket()));
                         searchPlaylistThread.start();
                         //
@@ -794,7 +743,6 @@ public class SpotifyServer {
                         break;
                     case "_SearchSong":
                         // searchSongHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread searchSongThread = new Thread(() -> searchSongHandler(tp.getScannerSocket(), tp.getSocket()));
                         searchSongThread.start();
                         //
@@ -803,7 +751,6 @@ public class SpotifyServer {
                         break;
                     case "_MyProfile":
                         // myProfileHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread myProfileThread = new Thread(() -> myProfileHandler(tp.getScannerSocket(), tp.getSocket()));
                         myProfileThread.start();
                         //
@@ -812,7 +759,6 @@ public class SpotifyServer {
                         break;
                     case "_UserImage":
                         // userImageHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread userImageThread = new Thread(() -> userImageHandler(tp.getScannerSocket(), tp.getSocket()));
                         userImageThread.start();
                         //
@@ -821,7 +767,6 @@ public class SpotifyServer {
                         break;
                     case "_GetList":
                         // getListHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread getListThread = new Thread(() -> getListHandler(tp.getScannerSocket(), tp.getSocket()));
                         getListThread.start();
                         //
@@ -830,18 +775,11 @@ public class SpotifyServer {
                         break;
                     case "_GetSong":
                         // getSongHandler(scannerSocket, socket);
-                        //به دلیل برنامه نویسی موازی خط بالا کامنت شد
                         Thread getSongThread = new Thread(() -> getSongHandler(tp.getScannerSocket(), tp.getSocket()));
                         getSongThread.start();
                         //
                         System.out.println("Get List Thread ID: " + getSongThread.getId() + "\n");
                         //
-                        break;
-                    case "_LikeSinger":
-                        Thread likeSingerThread = new Thread(() -> likeSingerHandler(tp.getScannerSocket(), tp.getSocket()));
-                        likeSingerThread.start();
-                        //
-                        System.out.println("Get List Thread ID: " + likeSingerThread.getId() + "\n");
                         break;
                     case "_Exit":
                         System.out.println("Request: Exit\n");
