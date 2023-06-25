@@ -73,6 +73,6 @@ From branch `netbeans`, clone the the 2 derectories `SpotifyServer` and `Spotify
 Spring of 2023 (Version 1.0)
 
 ## Resources
-- Managing database tables with [Extends Class](https://extendsclass.com/)
+- [Extends Class](https://extendsclass.com/)
 - [JavaFX tutorial](https://youtube.com/playlist?list=PLxaMIx7eqffLc9mkqFoBFANcZmJVBtzvp)
 - [Another JavaFX tutorial](https://youtube.com/playlist?list=PLZPZq0r_RZOM-8vJA3NQFZB7JroDcMwev)
