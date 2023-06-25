@@ -11,7 +11,14 @@ From [here](), you can acces the project documentation as well.
 
 
 
-
+## Objectives
+Here is a list of concepts which where used through out the project:
+- Using OOP concepts
+- Database design
+- Multithreading concepts
+- Socket Programming
+- Data encryption
+- Designing graphical user interface with JavaFX
 
 ## Pre Requirements
 - Java
@@ -23,15 +30,6 @@ From [here](), you can acces the project documentation as well.
 ## UML Design 
 ![SpotifyClient](https://github.com/Shyshfa/Spotify-Project/assets/118434072/c68d5c71-412c-4045-bb03-18573f161575)
 ![SpotifyServer](https://github.com/Shyshfa/Spotify-Project/assets/118434072/69f36772-b8c0-422e-8cb2-dcb1d85f1836)
-
-
-
-
-
-
-
-
-
 
 ## Implementation
 The project has 2 main part:<br>
