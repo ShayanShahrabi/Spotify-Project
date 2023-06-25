@@ -66,10 +66,8 @@ From branch `netbeans`, clone the the 2 derectories `SpotifyServer` and `Spotify
 - Course instructor: [Dr.Saeed Reza Kheradpisheh](https://www.linkedin.com/in/saeed-reza-kheradpisheh-7a0b18155/)
 - Project mentor: [Mobin Nesari](https://www.linkedin.com/in/mobin-nesari/)
 - Project judge: [Arsham Gholamzadeh](https://www.linkedin.com/in/arsham-khoee/)
-- Design:<br>
-[Rana Rokni](https://www.linkedin.com/in/rana-r-a5542420a/)
-[Farid Karimi](https://www.linkedin.com/in/farid-karimi-30456a257/)
-[Shayan Shahrabi Farahani](https://www.linkedin.com/in/shayanshahrabi/)
+- Design:[Shayan Shahrabi Farahani](https://www.linkedin.com/in/shayanshahrabi/), [Rana Rokni](https://www.linkedin.com/in/rana-r-a5542420a/), [Farid Karimi](https://www.linkedin.com/in/farid-karimi-30456a257/)
+
 
 ## date/time
 Spring of 2023 (Version 1.0)
