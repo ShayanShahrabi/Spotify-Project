@@ -21,6 +21,8 @@ From [here](), you can acces the project documentation as well.
 - Ant / Gradle as a build system for the project
   
 ## UML Design 
+![SpotifyClient](https://github.com/Shyshfa/Spotify-Project/assets/118434072/c68d5c71-412c-4045-bb03-18573f161575)
+![SpotifyServer](https://github.com/Shyshfa/Spotify-Project/assets/118434072/69f36772-b8c0-422e-8cb2-dcb1d85f1836)
 
 
 
