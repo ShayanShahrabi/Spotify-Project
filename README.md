@@ -33,7 +33,7 @@ Here is a list of concepts which where used through out the project:
 ## Implementation
 The project has 2 main part:<br>
 1. `SpotifyClient` <br>
-2. `SpotifyServer` package which handles the requests sent from the client and responds properly. It's worth of mention that dealing with database is on the server-side of the project as well.
+2. `SpotifyServer`<br>
 - `SpotifyClient`
 This is the package that is considered to be the interface/app layer of the project. It's repsonsible for getting input from a client, sending it through a socket to the server and waiting for a proper response. 
 - `SpotifyServer`
