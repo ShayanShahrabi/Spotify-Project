@@ -31,14 +31,15 @@ Here is a list of concepts which where used through out the project:
 ![SpotifyServer](https://github.com/Shyshfa/Spotify-Project/assets/118434072/69f36772-b8c0-422e-8cb2-dcb1d85f1836)
 
 ## Implementation
-The project has 2 main part:<br>
+The project has 3 main parts:<br>
 1. `SpotifyClient` <br>
 2. `SpotifyServer`<br>
+3. `Sockets`
 - `SpotifyClient`
 This is the package that is considered to be the interface/app layer of the project. It's repsonsible for getting input from a client, sending it through a socket to the server and waiting for a proper response. 
 - `SpotifyServer`
 The server is responsible for reading the requests from each clinet, either respoend directly or acces the database using `DBManager` class methods and then, responding back to the client. It's worth noting that the server is multithreaded, which means it can handle dealing with multiple reqeusets as well. Also a server log a printed to the terminal to show what the server is doint at the moment.
-- Sockets
+- `Sockets`
 It's worth noting that all the data passed between each client and the server is done through the use of sockets. In fact, each request from the client is sent to the socket, then server receives it and responds properly **through the same socket** for each client.
 
 ## Creating GUI
