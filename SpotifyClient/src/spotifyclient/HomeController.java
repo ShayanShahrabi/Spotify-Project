@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -84,6 +85,7 @@ public class HomeController implements Initializable {
                     cellInfo += message + "\n";
                 }
                 cellText.setText(cellInfo);
+                cellText.setFill(Paint.valueOf("1db954"));
                 // Add the text to the second cell of the current col
                 cellText.setWrappingWidth(200);
                 cellText.setTextAlignment(TextAlignment.LEFT);

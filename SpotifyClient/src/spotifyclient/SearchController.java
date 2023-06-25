@@ -18,6 +18,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.DialogPane;
@@ -112,6 +114,7 @@ public class SearchController implements Initializable {
                 gpReport.add(imageView, 0, row);
                 // اطلاعات آلبوم در سلول دوم از سطر جاری درج شود
                 Text cellText = new Text();
+                cellText.setFill(Paint.valueOf("1db954"));
                 cellInfo = "";
                 for(int i = 1; i < 6; i++)
                 {
@@ -207,6 +210,7 @@ public class SearchController implements Initializable {
                 gpReport.add(imageView, 0, row);
                 // اطلاعات خواننده در سلول دوم از سطر جاری درج شود
                 Text cellText = new Text();
+                cellText.setFill(Paint.valueOf("1db954"));
                 cellInfo = "";
                 for(int i = 1; i < 3; i++)
                 {
@@ -285,6 +289,7 @@ public class SearchController implements Initializable {
                 //ستون اول را با عرض کم خالی می گذاریم
                 // اطلاعات خواننده در سلول دوم از سطر جاری درج شود
                 Text cellText = new Text();
+                cellText.setFill(Paint.valueOf("1db954"));
                 cellInfo = "";
                 for(int i = 1; i < 5; i++)
                 {
@@ -365,6 +370,7 @@ public class SearchController implements Initializable {
                 //ستون اول را با عرض کم خالی می گذاریم
                 // اطلاعات خواننده در سلول دوم از سطر جاری درج شود
                 Text cellText = new Text();
+                cellText.setFill(Paint.valueOf("1db954"));
                 cellInfo = "";
                 for(int i = 1; i < 8; i++)
                 {
